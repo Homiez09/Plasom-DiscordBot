@@ -9,7 +9,7 @@ import {
     Role, 
     StringSelectMenuBuilder, 
     TextChannel, 
-    VoiceChannel
+    VoiceChannel,
 } from "discord.js";
 
 import { Bot } from '../../index'

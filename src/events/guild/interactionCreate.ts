@@ -1,4 +1,4 @@
-import { EmbedBuilder, CommandInteraction, SelectMenuInteraction } from 'discord.js';
+import { EmbedBuilder, CommandInteraction, SelectMenuInteraction, BitField, PermissionsBitField } from 'discord.js';
 import { Bot } from '../../index';
 
 module.exports = async (client: Bot, interaction: CommandInteraction | SelectMenuInteraction | any) => {
@@ -9,10 +9,9 @@ module.exports = async (client: Bot, interaction: CommandInteraction | SelectMen
         if (!client.slash.has(interaction.commandName)) return;
         if (!interaction.guild) return;
         const command = client.slash.get(interaction.commandName);
-
         try {
             if (command.userPerms) {
-                if (!interaction.member.permissions.has(command.userPerms)) {
+                if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
                     const embed = new EmbedBuilder()
                         .setColor(RED)
                         .setTitle("ปฎิเสธการใช้งาน")
@@ -25,22 +24,6 @@ module.exports = async (client: Bot, interaction: CommandInteraction | SelectMen
                     return interaction.reply({ embeds: [embed], ephemeral: true });
                 }
             }
-
-            if (command.botPerms) {
-                if (!interaction.guild.me.permissions.has(command.botPerms)) {
-                    const embed = new EmbedBuilder()
-                        .setColor(RED)
-                        .setTitle("ปฎิเสธการใช้งาน")
-                        .setDescription(`ฉันต้องการสิทธิ์ ${command.botPerms}!`)
-                        .setFooter({
-                            text: interaction.user.tag,
-                            iconURL: interaction.user.displayAvatarURL(),
-                        });
-
-                    return interaction.reply({ embeds: [embed], ephemeral: true });
-                }
-            }
-
             command.run(interaction, client);
         } catch (e) {
             console.log(e);
