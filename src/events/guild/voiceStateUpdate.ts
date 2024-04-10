@@ -28,7 +28,7 @@ module.exports = async (client: Bot, oldState: VoiceState, newState: VoiceState)
       });
 
       member.voice.setChannel(channel);
-      //voiceCollection.set(user.id, channel.id);
+
       await voiceCollectModel.create({
         user_ID: user.id,
         channel_ID: channel.id,

@@ -19,9 +19,7 @@ import channelModel from "../../schemas/channelDB";
 module.exports = {
     name: 'setup',
     description: 'ตั้งค่าความปลอดภัย',
-    category: 'Moderator',
-    userPerms: ['Administrator'],
-    botPerms: ['Administrator'],
+    forAdmin: true,
     options: [
         {
             name: 'auth',

@@ -1,4 +1,4 @@
-import { EmbedBuilder, CommandInteraction, SelectMenuInteraction, BitField, PermissionsBitField } from 'discord.js';
+import { EmbedBuilder, CommandInteraction, SelectMenuInteraction, PermissionsBitField } from 'discord.js';
 import { Bot } from '../../index';
 
 module.exports = async (client: Bot, interaction: CommandInteraction | SelectMenuInteraction | any) => {
@@ -10,7 +10,7 @@ module.exports = async (client: Bot, interaction: CommandInteraction | SelectMen
         if (!interaction.guild) return;
         const command = client.slash.get(interaction.commandName);
         try {
-            if (command.userPerms) {
+            if (command.forAdmin) {
                 if (!interaction.member.permissions.has(PermissionsBitField.Flags.Administrator)) {
                     const embed = new EmbedBuilder()
                         .setColor(RED)
